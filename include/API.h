@@ -198,10 +198,58 @@ public:
     //Cancel order
     std::string Delete_order(std::string orderId);
 
+    //Trading History & Reports
+    //Get a list of currencies user had any activity in
+    /*
+    parameter
+    key *       Available values : Deposits, Withdrawals, Burn, Reward, Investments
+    string
+    (query)	
+    */
+    std::string Get_list_currency_user_activity(std::string key);
 
+    //Gets the list of currency pairs the user had orders in for all the time
+    std::string Get_list_all_currencypairs_by_user();
 
+    //Get past orders
+    /*
+    parameter
+    currencyPairId  integer (query)	
+    orderStatus     string  (query)	    Available values : ALL, FINISHED, CANCELLED, PARTIAL, WITH_TRADES   Default value : ALL
+    timeStart       integer (query)	    Timestamp in seconds.
+    timeEnd         integer (query)	    Timestamp in seconds.
+    limit           integer (query)	    Default value : 100
+    offset          integer (query)	
+    */
+    std::string Get_past_orders(std::string currencyPairId = "", std::string orderStatus = "", std::string timeStart = "", std::string timeEnd = "", std::string limit = "", std::string offset = "");
 
+    //Get specified order details
+    std::string Get_order_details(std::string orderId);
 
+    //Get a list of user trades according to request parameters
+    std::string Get_list_user_spec_trades(std::string currencyPairId, std::string timeStart = "", std::string timeEnd = "", std::string limit = "", std::string offset = "");
+
+    //Get reports list for category
+    /*
+    listMode *      string(path)	Available values : all, recently, scheduled
+    */
+    std::string Get_reports_list_category(std::string listMode, std::string limit = "", std::string offset = "");
+
+    //Get some report info
+    std::string Get_report_info(std::string id);
+
+    //Remove report by id
+    std::string Delete_report_by_id(std::string id);
+
+    //Create new report
+    /*
+    type        array[string](query)	["All", "Deposits", "Withdrawals", "Orders"]
+    format *    string(query)	        Available values : Html, Csv, Xls, Pdf
+    */
+    std::string Create_new_report(std::string name, std::string date_from, std::string date_to, std::string format, std::string type = "");
+
+    //Get file by id
+    std::string Get_file_by_id(std::string id);
 
 };
 

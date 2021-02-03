@@ -39,7 +39,6 @@ std::string API::Call(std::string method, bool authed, std::string path, std::st
       chunk = curl_slist_append(chunk, "Content-Type: application/x-www-form-urlencoded");
       curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, -1L);
       curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body.c_str());
-      
     }
     if (method == "DELETE")
     {
@@ -353,7 +352,7 @@ std::string API::Get_user_fee_currency_pair(std::string currencyPairId)
 }
 
 //List your currently open orders
-std::string API::Get_list_open_all_orders(std::string limit , std::string offset )
+std::string API::Get_list_open_all_orders(std::string limit, std::string offset)
 {
   std::string url = "/trading/orders";
   url += "?limit=" + limit;
@@ -373,7 +372,7 @@ std::string API::Delete_all_active_orders()
 }
 
 //List your currently open orders for given currency pair
-std::string API::Get_list_open_order_by_currency_pair(std::string currencyPairId, std::string limit , std::string offset )
+std::string API::Get_list_open_order_by_currency_pair(std::string currencyPairId, std::string limit, std::string offset)
 {
   std::string url = "/trading/orders/" + currencyPairId;
   url += "?limit=" + limit;
@@ -400,7 +399,7 @@ std::string API::Creat_new_order(std::string currencyPairId, std::string type, s
   body += "&amount=" + amount;
   body += "&price=" + price;
   body += "&trigger_price=" + trigger_price;
-  std::string res = Call("POST", true, url,  body);
+  std::string res = Call("POST", true, url, body);
 
   std::cout << res << std::endl;
   return "";
@@ -424,8 +423,114 @@ std::string API::Delete_order(std::string orderId)
   return "";
 }
 
+//Get a list of currencies user had any activity in 
+std::string API::Get_list_currency_user_activity(std::string key)
+{
+  std::string url = "/reports/currencies?key=" + key;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
 
+//Gets the list of currency pairs the user had orders in for all the time
+std::string API::Get_list_all_currencypairs_by_user()
+{
+  std::string url = "/reports/currency_pairs" ;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
 
+//Get past orders 
+std::string API::Get_past_orders(std::string currencyPairId , std::string orderStatus , std::string timeStart , std::string timeEnd , std::string limit , std::string offset )
+{
+  std::string url = "/reports/orders" ;
+  url += "?currencyPairId=" + currencyPairId;
+  url += "&orderStatus=" + orderStatus;
+  url += "&timeStart=" + timeStart;
+  url += "&timeEnd=" + timeEnd;
+  url += "&limit=" + limit;
+  url += "&offset=" + offset;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get specified order details
+std::string API::Get_order_details(std::string orderId)
+{
+  std::string url = "/reports/orders/" + orderId;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get a list of user trades according to request parameters
+std::string API::Get_list_user_spec_trades(std::string currencyPairId, std::string timeStart , std::string timeEnd , std::string limit , std::string offset )
+{
+  std::string url = "/reports/trades" ;
+  url += "?currencyPairId=" + currencyPairId;
+  url += "&timeStart=" + timeStart;
+  url += "&timeEnd=" + timeEnd;
+  url += "&limit=" + limit;
+  url += "&offset=" + offset;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get reports list for category 
+std::string API::Get_reports_list_category(std::string listMode, std::string limit , std::string offset )
+{
+  std::string url = "/reports/background/" + listMode;
+  url += "&limit=" + limit;
+  url += "&offset=" + offset;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get some report info
+std::string API::Get_report_info(std::string id)
+{
+  std::string url = "/reports/background/" + id;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Remove report by id
+std::string API::Delete_report_by_id(std::string id)
+{
+  std::string url = "/reports/background/" + id;
+  std::string res = Call("DELETE", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Create new report 
+std::string API::Create_new_report(std::string name, std::string date_from, std::string date_to, std::string format, std::string type )
+{
+  std::string url = "/reports/background/create";
+  std::string body = "name=" + name;
+  body += "&date_from=" + date_from;
+  body += "&date_to=" + date_to;
+  body += "&format=" + format;
+  body += "&type=" + type;
+  std::string res = Call("POST", true, url, body);
+
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get file by id
+std::string API::Get_file_by_id(std::string id)
+{
+  std::string url = "/reports/background/download/" + id;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
 
 
 

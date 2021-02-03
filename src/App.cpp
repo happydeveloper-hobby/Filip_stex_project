@@ -246,12 +246,12 @@ void App::Creat_new_order()
 	std::cout << "please enter type (BUY / SELL / STOP_LIMIT_BUY / STOP_LIMIT_SELL):\t";
 	std::cin >> type;
 	std::cout << std::endl;
-	
+
 	std::string amount;
 	std::cout << "please enter amount :\t";
 	std::cin >> amount;
 	std::cout << std::endl;
-	
+
 	std::string price;
 	std::cout << "please enter price :\t";
 	std::cin >> price;
@@ -285,10 +285,113 @@ void App::Delete_order()
 	api.Delete_order(orderId);
 }
 
+//Get a list of currencies user had any activity in 
+void App::Get_list_currency_user_activity()
+{
+	std::string key;
+	std::cout << "please enter key ( Deposits, Withdrawals, Burn, Reward, Investments ):\t";
+	std::cin >> key;
+	std::cout << std::endl;
+	api.Get_list_currency_user_activity(key);
+}
 
+//Gets the list of currency pairs the user had orders in for all the time
+void App::Get_list_all_currencypairs_by_user()
+{
+	api.Get_list_all_currencypairs_by_user();
+}
 
+//Get past orders
+void App::Get_past_orders()
+{
+	api.Get_past_orders();
+}
 
+//Get specified order details
+void App::Get_order_details()
+{
+	std::string orderId;
+	std::cout << "please enter orderId :\t";
+	std::cin >> orderId;
+	std::cout << std::endl;
+	api.Get_order_details(orderId);
+}
 
+//Get a list of user trades according to request parameters
+void App::Get_list_user_spec_trades()
+{
+	std::string currencyPairId;
+	std::cout << "please enter currencyPairId :\t";
+	std::cin >> currencyPairId;
+	std::cout << std::endl;
+	api.Get_list_user_spec_trades(currencyPairId);
+}
+
+//Get reports list for category
+void App::Get_reports_list_category()
+{
+	std::string listMode;
+	std::cout << "please enter listMode ( all, recently, scheduled ):\t";
+	std::cin >> listMode;
+	std::cout << std::endl;
+	api.Get_reports_list_category(listMode);
+}
+
+//Get some report info
+void App::Get_report_info()
+{
+	std::string id;
+	std::cout << "please enter id :\t";
+	std::cin >> id;
+	std::cout << std::endl;
+	api.Get_report_info(id);
+}
+
+//Remove report by id
+void App::Delete_report_by_id()
+{
+	std::string id;
+	std::cout << "please enter id :\t";
+	std::cin >> id;
+	std::cout << std::endl;
+	api.Delete_report_by_id(id);
+}
+
+//Create new report
+void App::Create_new_report()
+{
+	std::string name;
+	std::cout << "please enter name :\t";
+	std::cin >> name;
+	std::cout << std::endl;
+	std::string date_from;
+	std::cout << "please enter date_from :\t";
+	std::cin >> date_from;
+	std::cout << std::endl;
+	std::string date_to;
+	std::cout << "please enter date_to :\t";
+	std::cin >> date_to;
+	std::cout << std::endl;
+	std::string format;
+	std::cout << "please enter format  ( Html, Csv, Xls, Pdf ) :\t";
+	std::cin >> format;
+	std::cout << std::endl;
+	std::string type;
+	std::cout << "please enter type array 	['All', 'Deposits', 'Withdrawals', 'Orders'] :\t";
+	std::cin >> type;
+	std::cout << std::endl;
+	api.Create_new_report(name, date_from, date_to, format, type);
+}
+
+//Get file by id
+void App::Get_file_by_id()
+{
+	std::string id;
+	std::cout << "please enter id :\t";
+	std::cin >> id;
+	std::cout << std::endl;
+	api.Delete_report_by_id(id);
+}
 
 
 

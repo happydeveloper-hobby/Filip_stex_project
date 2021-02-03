@@ -63,7 +63,17 @@ int main()
 		std::cout << "\t" << std::left << std::setw(45) << "25) Create new order and put it to the orders processing queue" << std::endl;
 		std::cout << "\t" << std::left << std::setw(45) << "26) Get a single order" << std::endl;
 		std::cout << "\t" << std::left << std::setw(45) << "27) Cancel order" << std::endl;
-		std::cout << "\t" << std::left << std::setw(45) << "28) Exit" << std::setw(45) << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "28) Get a list of currencies user had any activity in" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "29) Gets the list of currency pairs the user had orders in for all the time" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "30) Get past orders" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "31) Get specified order details" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "32) Get a list of user trades according to request parameters" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "33) Get reports list for category" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "34) Get some report info" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "35) Remove report by id" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "36) Create new report" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "37) Get file by id" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "38) Exit" << std::setw(45) << std::endl;
 
 		choice = GetInput();
 
@@ -151,6 +161,36 @@ int main()
 			app.Delete_order();
 			break;
 		case 28:
+			app.Get_list_currency_user_activity();
+			break;
+		case 29:
+			app.Get_list_all_currencypairs_by_user();
+			break;
+		case 30:
+			app.Get_past_orders();
+			break;
+		case 31:
+			app.Get_order_details();
+			break;
+		case 32:
+			app.Get_list_user_spec_trades();
+			break;
+		case 33:
+			app.Get_reports_list_category();
+			break;
+		case 34:
+			app.Get_report_info();
+			break;
+		case 35:
+			app.Delete_report_by_id();
+			break;
+		case 36:
+			app.Create_new_report();
+			break;
+		case 37:
+			app.Get_file_by_id();
+			break;
+		case 38:
 			break;
 		default:
 			break;
@@ -160,7 +200,7 @@ int main()
 		std::cout << "================================================================= " << std::endl
 				  << std::endl;
 
-	} while (choice < 28);
+	} while (choice < 38);
 
 	return 0;
 }

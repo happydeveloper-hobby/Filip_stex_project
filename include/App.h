@@ -100,6 +100,37 @@ public:
     //27 Cancel order
     void Delete_order();
 
+    //trading history
+    //28 Get a list of currencies user had any activity in
+    void Get_list_currency_user_activity();
+
+    //29 Gets the list of currency pairs the user had orders in for all the time
+    void Get_list_all_currencypairs_by_user();
+
+    //30 Get past orders
+    void Get_past_orders();
+
+    //31 Get specified order details
+    void Get_order_details();
+
+    //32 Get a list of user trades according to request parameters
+    void Get_list_user_spec_trades();
+
+    //33 Get reports list for category
+    void Get_reports_list_category();
+
+    //34 Get some report info
+    void Get_report_info();
+
+    //35 Remove report by id
+    void Delete_report_by_id();
+
+    //36 Create new report
+    void Create_new_report();
+
+    //37 Get file by id
+    void Get_file_by_id();
+
 
 
 
