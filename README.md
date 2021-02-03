@@ -1,5 +1,5 @@
 # Filip project
-Be sure to place your authentication information for the fake account in main.cpp
+
 ## Build Ubuntu
 ```
 
