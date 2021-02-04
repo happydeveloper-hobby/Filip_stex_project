@@ -131,6 +131,19 @@ public:
     //37 Get file by id
     void Get_file_by_id();
 
+    //Settings
+    //38 User event notification settings by event
+    void Get_list_notification_by_event();
+
+    //39 User event notification settings
+    void Get_list_notification();
+
+    //40 Set notification settings in specific channel for the user
+    void Set_notification_settings();
+
+    //41 Set notification settings in many channels for the user at one request
+    void Set_notification_settings_one_request();
+
 
 
 

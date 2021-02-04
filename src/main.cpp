@@ -73,134 +73,64 @@ int main()
 		std::cout << "\t" << std::left << std::setw(45) << "35) Remove report by id" << std::endl;
 		std::cout << "\t" << std::left << std::setw(45) << "36) Create new report" << std::endl;
 		std::cout << "\t" << std::left << std::setw(45) << "37) Get file by id" << std::endl;
-		std::cout << "\t" << std::left << std::setw(45) << "38) Exit" << std::setw(45) << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "38) User event notification settings by event" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "39) User event notification settings" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "40) Set notification settings in specific channel for the user" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "41) Set notification settings in many channels for the user at one request" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "42) Exit" << std::setw(45) << std::endl;
 
 		choice = GetInput();
 
 		switch (choice)
 		{
-		case 1:
-			app.Get_list_currencies();
-			break;
-		case 2:
-			app.Get_currency_info();
-			break;
-		case 3:
-			app.Get_list_markets();
-			break;
-		case 4:
-			app.Get_list_currency_pairs_groups();
-			break;
-		case 5:
-			app.Get_currency_pairs();
-			break;
-		case 6:
-			app.Get_currency_pairs_given_group();
-			break;
-		case 7:
-			app.Get_currency_pair_information();
-			break;
-		case 8:
-			app.Get_ticker_list_currency_pairs();
-			break;
-		case 9:
-			app.Get_ticker_currency_pair();
-			break;
-		case 10:
-			app.Get_trades_currency_pair();
-			break;
-		case 11:
-			app.Get_orderbook_currency_pair();
-			break;
-		case 12:
-			app.Get_list_candles_currency_pair();
-			break;
-		case 13:
-			app.Get_list_deposit_statuses();
-			break;
-		case 14:
-			app.Get_deposit_status();
-			break;
-		case 15:
-			app.Get_list_withdrawal_statuses();
-			break;
-		case 16:
-			app.Get_withdrawal_status();
-			break;
-		case 17:
-			app.ping();
-			break;
-		case 18:
-			app.Get_mobile_version();
-			break;
-		case 19:
-			app.Get_twitter();
-			break;
-		case 20:
-			app.Get_user_fee_currency_pair();
-			break;
-		case 21:
-			app.Get_list_open_all_orders();
-			break;
-		case 22:
-			app.Delete_all_active_orders();
-			break;
-		case 23:
-			app.Get_list_open_order_by_currency_pair();
-			break;
-		case 24:
-			app.Delete_order_by_currency_pair();
-			break;
-		case 25:
-			app.Creat_new_order();
-			break;
-		case 26:
-			app.Get_single_order();
-			break;
-		case 27:
-			app.Delete_order();
-			break;
-		case 28:
-			app.Get_list_currency_user_activity();
-			break;
-		case 29:
-			app.Get_list_all_currencypairs_by_user();
-			break;
-		case 30:
-			app.Get_past_orders();
-			break;
-		case 31:
-			app.Get_order_details();
-			break;
-		case 32:
-			app.Get_list_user_spec_trades();
-			break;
-		case 33:
-			app.Get_reports_list_category();
-			break;
-		case 34:
-			app.Get_report_info();
-			break;
-		case 35:
-			app.Delete_report_by_id();
-			break;
-		case 36:
-			app.Create_new_report();
-			break;
-		case 37:
-			app.Get_file_by_id();
-			break;
-		case 38:
-			break;
-		default:
-			break;
-		
+			case 1: 	app.Get_list_currencies(); 						break;
+			case 2: 	app.Get_currency_info(); 						break;
+			case 3: 	app.Get_list_markets(); 						break;
+			case 4: 	app.Get_list_currency_pairs_groups(); 			break;
+			case 5: 	app.Get_currency_pairs(); 						break;
+			case 6: 	app.Get_currency_pairs_given_group(); 			break;
+			case 7: 	app.Get_currency_pair_information(); 			break;
+			case 8: 	app.Get_ticker_list_currency_pairs(); 			break;
+			case 9: 	app.Get_ticker_currency_pair();					break;
+			case 10:	app.Get_trades_currency_pair();					break;
+			case 11:	app.Get_orderbook_currency_pair();				break;
+			case 12:	app.Get_list_candles_currency_pair(); 			break;
+			case 13:	app.Get_list_deposit_statuses();				break;
+			case 14:	app.Get_deposit_status();						break;
+			case 15:	app.Get_list_withdrawal_statuses();				break;
+			case 16:	app.Get_withdrawal_status();					break;
+			case 17:	app.ping();										break;
+			case 18:	app.Get_mobile_version();						break;
+			case 19:	app.Get_twitter();								break;
+			case 20:	app.Get_user_fee_currency_pair();				break;
+			case 21:	app.Get_list_open_all_orders();					break;
+			case 22:	app.Delete_all_active_orders();					break;
+			case 23:	app.Get_list_open_order_by_currency_pair();		break;
+			case 24:	app.Delete_order_by_currency_pair();			break;
+			case 25:	app.Creat_new_order();							break;
+			case 26:	app.Get_single_order();							break;
+			case 27:	app.Delete_order();								break;
+			case 28:	app.Get_list_currency_user_activity();			break;
+			case 29:	app.Get_list_all_currencypairs_by_user();		break;
+			case 30:	app.Get_past_orders();							break;
+			case 31:	app.Get_order_details();						break;
+			case 32:	app.Get_list_user_spec_trades();				break;
+			case 33:	app.Get_reports_list_category();				break;
+			case 34:	app.Get_report_info();							break;
+			case 35:	app.Delete_report_by_id();						break;
+			case 36:	app.Create_new_report();						break;
+			case 37:	app.Get_file_by_id();							break;
+			case 38:	app.Get_list_notification_by_event();			break;
+			case 39:	app.Get_list_notification();					break;
+			case 40:	app.Set_notification_settings();				break;
+			case 41:	app.Set_notification_settings_one_request();	break;
+			case 42:	break;
+			default:	break;
 		}
 		std::cout << std::endl;
-		std::cout << "================================================================= " << std::endl
-				  << std::endl;
+		std::cout << "================================================================= " << std::endl << std::endl;
 
-	} while (choice < 38);
+	} while (choice < 42);
 
 	return 0;
 }

@@ -251,6 +251,25 @@ public:
     //Get file by id
     std::string Get_file_by_id(std::string id);
 
+    //Settings
+    //User event notification settings
+    std::string Get_list_notification_by_event(std::string event);
+
+    //User event notification settings
+    std::string Get_list_notification();
+
+    //Set notification settings
+    /*
+    event *     string(query)	An event name you want to subscribe.
+    channel *   string(query)	A channel name you want to receive the notification through.
+    value *     integer(query)	1 - to subscribe to the notifications of the given event in the specified channel, 0 - to remove subscription of the specified event in the specified channel 
+    Available values : 0, 1
+    */
+    std::string Set_notification_settings(std::string event, std::string channel, std::string value);
+
+    //Set notification settings
+    std::string Set_notification_settings_one_request();
+
 };
 
 

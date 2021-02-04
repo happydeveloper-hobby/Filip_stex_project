@@ -44,6 +44,10 @@ std::string API::Call(std::string method, bool authed, std::string path, std::st
     {
       curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");
     }
+    if (method == "PUT")
+    {
+      curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
+    }
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
     res = curl_easy_perform(curl);
@@ -423,7 +427,7 @@ std::string API::Delete_order(std::string orderId)
   return "";
 }
 
-//Get a list of currencies user had any activity in 
+//Get a list of currencies user had any activity in
 std::string API::Get_list_currency_user_activity(std::string key)
 {
   std::string url = "/reports/currencies?key=" + key;
@@ -435,16 +439,16 @@ std::string API::Get_list_currency_user_activity(std::string key)
 //Gets the list of currency pairs the user had orders in for all the time
 std::string API::Get_list_all_currencypairs_by_user()
 {
-  std::string url = "/reports/currency_pairs" ;
+  std::string url = "/reports/currency_pairs";
   std::string res = Call("GET", true, url, "");
   std::cout << res << std::endl;
   return "";
 }
 
-//Get past orders 
-std::string API::Get_past_orders(std::string currencyPairId , std::string orderStatus , std::string timeStart , std::string timeEnd , std::string limit , std::string offset )
+//Get past orders
+std::string API::Get_past_orders(std::string currencyPairId, std::string orderStatus, std::string timeStart, std::string timeEnd, std::string limit, std::string offset)
 {
-  std::string url = "/reports/orders" ;
+  std::string url = "/reports/orders";
   url += "?currencyPairId=" + currencyPairId;
   url += "&orderStatus=" + orderStatus;
   url += "&timeStart=" + timeStart;
@@ -466,9 +470,9 @@ std::string API::Get_order_details(std::string orderId)
 }
 
 //Get a list of user trades according to request parameters
-std::string API::Get_list_user_spec_trades(std::string currencyPairId, std::string timeStart , std::string timeEnd , std::string limit , std::string offset )
+std::string API::Get_list_user_spec_trades(std::string currencyPairId, std::string timeStart, std::string timeEnd, std::string limit, std::string offset)
 {
-  std::string url = "/reports/trades" ;
+  std::string url = "/reports/trades";
   url += "?currencyPairId=" + currencyPairId;
   url += "&timeStart=" + timeStart;
   url += "&timeEnd=" + timeEnd;
@@ -479,8 +483,8 @@ std::string API::Get_list_user_spec_trades(std::string currencyPairId, std::stri
   return "";
 }
 
-//Get reports list for category 
-std::string API::Get_reports_list_category(std::string listMode, std::string limit , std::string offset )
+//Get reports list for category
+std::string API::Get_reports_list_category(std::string listMode, std::string limit, std::string offset)
 {
   std::string url = "/reports/background/" + listMode;
   url += "&limit=" + limit;
@@ -508,8 +512,8 @@ std::string API::Delete_report_by_id(std::string id)
   return "";
 }
 
-//Create new report 
-std::string API::Create_new_report(std::string name, std::string date_from, std::string date_to, std::string format, std::string type )
+//Create new report
+std::string API::Create_new_report(std::string name, std::string date_from, std::string date_to, std::string format, std::string type)
 {
   std::string url = "/reports/background/create";
   std::string body = "name=" + name;
@@ -531,6 +535,54 @@ std::string API::Get_file_by_id(std::string id)
   std::cout << res << std::endl;
   return "";
 }
+
+//Settings
+//User event notification settings
+std::string API::Get_list_notification_by_event(std::string event)
+{
+  std::string url = "/settings/notifications/" + event;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//User event notification settings
+std::string API::Get_list_notification()
+{
+  std::string url = "/settings/notifications";
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Set notification settings
+/*
+    event *     string(query)	An event name you want to subscribe.
+    channel *   string(query)	A channel name you want to receive the notification through.
+    value *     integer(query)	1 - to subscribe to the notifications of the given event in the specified channel, 0 - to remove subscription of the specified event in the specified channel 
+    Available values : 0, 1
+    */
+std::string API::Set_notification_settings(std::string event, std::string channel, std::string value)
+{
+  std::string url = "/settings/notifications?";
+  url += "event=" + event;
+  url += "&channel=" + channel;
+  url += "&value=" + value;
+  std::string res = Call("PUT", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Set notification settings
+std::string API::Set_notification_settings_one_request()
+{
+  std::string url = "/settings/notifications/set";
+  std::string res = Call("PUT", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+
 
 
 

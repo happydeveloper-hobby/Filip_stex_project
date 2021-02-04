@@ -285,7 +285,7 @@ void App::Delete_order()
 	api.Delete_order(orderId);
 }
 
-//Get a list of currencies user had any activity in 
+//Get a list of currencies user had any activity in
 void App::Get_list_currency_user_activity()
 {
 	std::string key;
@@ -393,13 +393,47 @@ void App::Get_file_by_id()
 	api.Delete_report_by_id(id);
 }
 
+//Settings
+//User event notification settings
+void App::Get_list_notification_by_event()
+{
+	std::string event;
+	std::cout << "please enter event (An event name you want to subscribe.) :\t";
+	std::cin >> event;
+	std::cout << std::endl;
+	api.Get_list_notification_by_event(event);
+}
 
+//User event notification settings
+void App::Get_list_notification()
+{ 
+	api.Get_list_notification();
+}
 
+//Set notification settings 
+void App::Set_notification_settings()
+{
+	std::string event;
+	std::cout << "please enter event (An event name you want to subscribe.) :\t";
+	std::cin >> event;
+	std::cout << std::endl;
+	std::string channel;
+	std::cout << "please enter channel (A channel name you want to receive the notification through.) :\t";
+	std::cin >> channel;
+	std::cout << std::endl;
+	std::string value;
+	std::cout << "please enter value (1, 0) :\t";
+	std::cin >> value;
+	std::cout << std::endl;
+	
+	api.Set_notification_settings(event, channel, value);
+}
 
-
-
-
-
+//Set notification settings
+void App::Set_notification_settings_one_request()
+{ 
+	api.Set_notification_settings_one_request();
+}
 
 
 
