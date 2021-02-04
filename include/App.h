@@ -75,6 +75,33 @@ public:
     //19 Get the last 20 posts (stex.com) on Twitter
     void Get_twitter();
 
+    //Trading
+    //20 Returns the user's fees for a given currency pair
+    void Get_user_fee_currency_pair();
+
+    //21 List your currently open orders
+    void Get_list_open_all_orders();
+
+    //22 Delete all active orders
+    void Delete_all_active_orders();
+
+    //23 List your currently open orders for given currency pair
+    void Get_list_open_order_by_currency_pair();
+
+    //24 Delete active orders for given currency pair
+    void Delete_order_by_currency_pair();
+
+    //25 Create new order and put it to the orders processing queue
+    void Creat_new_order();
+
+    //26 Get a single order
+    void Get_single_order();
+
+    //27 Cancel order
+    void Delete_order();
+
+
+
 
 };
 

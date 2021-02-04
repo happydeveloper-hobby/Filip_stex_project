@@ -2,7 +2,6 @@
 #ifndef API_H
 #define API_H
 
-#include "Auth.h"
 #include <string>
 #include <vector>
 
@@ -14,7 +13,6 @@ private:
 public:
     API();
     ~API();
-    Auth auth;
     std::string uri;
     std::string access_token;
     std::string product_id;
@@ -159,6 +157,46 @@ public:
 
     // Get the last 20 posts (stex.com) on Twitter
     std::string Get_twitter();
+
+
+    //Trading
+    //Returns the user's fees for a given currency pair
+    std::string Get_user_fee_currency_pair(std::string currencyPairId);
+
+    //List your currently open orders
+    /*
+    parameter
+    limit   integer(query)	    Default value : 100
+
+    offset  integer(query)
+    */
+    std::string Get_list_open_all_orders(std::string limit = "", std::string offset = "");
+
+    //Delete all active orders
+    std::string Delete_all_active_orders();
+
+    //List your currently open orders for given currency pair
+    std::string Get_list_open_order_by_currency_pair(std::string currencyPairId, std::string limit = "", std::string offset = "");
+
+    //Delete active orders for given currency pair
+    std::string Delete_order_by_currency_pair(std::string currencyPairId);
+
+    //Create new order and put it to the orders processing queue
+    /*
+    parameter
+    type *          string      order type (BUY / SELL / STOP_LIMIT_BUY / STOP_LIMIT_SELL)
+
+    amount *        number
+    price *         number
+    trigger_price   number      stop price for stop-limit orders. Required if the order is of type STOP_LIMIT_BUY or STOP_LIMIT_SELL
+    */
+    std::string Creat_new_order(std::string currencyPairId, std::string type, std::string amount, std::string price, std::string trigger_price = "");
+
+    //Get a single order
+    std::string Get_single_order(std::string orderId);
+
+    //Cancel order
+    std::string Delete_order(std::string orderId);
 
 
 

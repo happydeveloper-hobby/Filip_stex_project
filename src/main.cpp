@@ -1,8 +1,6 @@
-#include "Auth.h"
 #include "API.h"
 #include "App.h"
 #include "Util.h"
-#include "Websock.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -27,21 +25,13 @@ int GetInput()
 }
 
 
-int main1()
+int main()
 {
 	App app;
-	Util util;
-	util.GetTimestamp();
 	int choice = 0;
-
-
-
-
 
 	do
 	{
-		// system("clear");
-
 		std::cout << std::endl
 				  << std::endl
 				  << std::endl;
@@ -65,7 +55,15 @@ int main1()
 		std::cout << "\t" << std::left << std::setw(45) << "17) Test API is working and get server time" << std::endl;
 		std::cout << "\t" << std::left << std::setw(45) << "18) Shows the official mobile applications data" << std::endl;
 		std::cout << "\t" << std::left << std::setw(45) << "19) Get the last 20 posts (stex.com) on Twitter" << std::endl;
-		std::cout << "\t" << std::left << std::setw(45) << "20) Exit" << std::setw(45) << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "20) Returns the user's fees for a given currency pair" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "21) List your currently open orders" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "22) Delete all active orders" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "23) List your currently open orders for given currency pair" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "24) Delete active orders for given currency pair" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "25) Create new order and put it to the orders processing queue" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "26) Get a single order" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "27) Cancel order" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "28) Exit" << std::setw(45) << std::endl;
 
 		choice = GetInput();
 
@@ -129,6 +127,30 @@ int main1()
 			app.Get_twitter();
 			break;
 		case 20:
+			app.Get_user_fee_currency_pair();
+			break;
+		case 21:
+			app.Get_list_open_all_orders();
+			break;
+		case 22:
+			app.Delete_all_active_orders();
+			break;
+		case 23:
+			app.Get_list_open_order_by_currency_pair();
+			break;
+		case 24:
+			app.Delete_order_by_currency_pair();
+			break;
+		case 25:
+			app.Creat_new_order();
+			break;
+		case 26:
+			app.Get_single_order();
+			break;
+		case 27:
+			app.Delete_order();
+			break;
+		case 28:
 			break;
 		default:
 			break;
@@ -138,7 +160,7 @@ int main1()
 		std::cout << "================================================================= " << std::endl
 				  << std::endl;
 
-	} while (choice < 20);
+	} while (choice < 28);
 
 	return 0;
 }

@@ -28,21 +28,18 @@ std::string API::Call(std::string method, bool authed, std::string path, std::st
     curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl/1.0");
     curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
     curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
-    chunk = curl_slist_append(chunk, "Content-Type: application/json");
+    chunk = curl_slist_append(chunk, "accept: application/json");
     if (authed)
     {
-      // std::string time_stamp = auth.GetTimestamp();
-      // std::string sign = auth.Sign(time_stamp, method, path, body);
-      // chunk = curl_slist_append(chunk, ("CB-ACCESS-KEY: " + auth.Key).c_str());
-      // chunk = curl_slist_append(chunk, ("CB-ACCESS-SIGN: " + sign).c_str());
-      // chunk = curl_slist_append(chunk, ("CB-ACCESS-TIMESTAMP: " + time_stamp).c_str());
-      // chunk = curl_slist_append(chunk, ("CB-ACCESS-PASSPHRASE: " + auth.Passphrase).c_str());
+      chunk = curl_slist_append(chunk, ("Authorization: Bearer " + access_token).c_str());
     }
     res = curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
     if (method == "POST")
     {
+      chunk = curl_slist_append(chunk, "Content-Type: application/x-www-form-urlencoded");
       curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, -1L);
       curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body.c_str());
+      
     }
     if (method == "DELETE")
     {
@@ -246,7 +243,7 @@ std::string API::Get_ticker_currency_pair(std::string currencyPairId)
 }
 
 // Trades for given currency pair
-std::string API::Get_trades_currency_pair(std::string currencyPairId, std::string sort , std::string from , std::string till , std::string limit, std::string offset)
+std::string API::Get_trades_currency_pair(std::string currencyPairId, std::string sort, std::string from, std::string till, std::string limit, std::string offset)
 {
   std::string url = "/public/trades/" + currencyPairId;
   url += "?sort=" + sort;
@@ -344,6 +341,101 @@ std::string API::Get_twitter()
   std::cout << res << std::endl;
   return "";
 }
+
+//Trading
+//Returns the user's fees for a given currency pair
+std::string API::Get_user_fee_currency_pair(std::string currencyPairId)
+{
+  std::string url = "/trading/fees/" + currencyPairId;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//List your currently open orders
+std::string API::Get_list_open_all_orders(std::string limit , std::string offset )
+{
+  std::string url = "/trading/orders";
+  url += "?limit=" + limit;
+  url += "&offset=" + offset;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Delete all active orders
+std::string API::Delete_all_active_orders()
+{
+  std::string url = "/trading/orders/";
+  std::string res = Call("DELETE", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//List your currently open orders for given currency pair
+std::string API::Get_list_open_order_by_currency_pair(std::string currencyPairId, std::string limit , std::string offset )
+{
+  std::string url = "/trading/orders/" + currencyPairId;
+  url += "?limit=" + limit;
+  url += "&offset=" + offset;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Delete active orders for given currency pair
+std::string API::Delete_order_by_currency_pair(std::string currencyPairId)
+{
+  std::string url = "/trading/orders/" + currencyPairId;
+  std::string res = Call("DELETE", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Create new order and put it to the orders processing queue
+std::string API::Creat_new_order(std::string currencyPairId, std::string type, std::string amount, std::string price, std::string trigger_price)
+{
+  std::string url = "/trading/orders/" + currencyPairId;
+  std::string body = "type=" + type;
+  body += "&amount=" + amount;
+  body += "&price=" + price;
+  body += "&trigger_price=" + trigger_price;
+  std::string res = Call("POST", true, url,  body);
+
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get a single order
+std::string API::Get_single_order(std::string orderId)
+{
+  std::string url = "/trading/orders/" + orderId;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Cancel order
+std::string API::Delete_order(std::string orderId)
+{
+  std::string url = "/trading/orders/" + orderId;
+  std::string res = Call("DELETE", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
