@@ -14,6 +14,16 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
   return size * nmemb;
 }
 
+API::API()
+{
+  curl_global_init(CURL_GLOBAL_DEFAULT);
+}
+
+API::~API()
+{
+  curl_global_cleanup();
+}
+
 /* Uses libcurl to get Data From API */
 std::string API::Call(std::string method, bool authed, std::string path, std::string body)
 {
@@ -583,30 +593,282 @@ std::string API::Set_notification_settings_one_request()
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-API::API()
+//Profile
+//Account Information
+/*
+    show_balances   string(query)	if present and is > 0, the response will include the 'approx_balance' section. It will be returned as null if this parameter is not present or is not positive number
+    */
+std::string API::Get_accoutn_information(std::string show_balances )
 {
-  curl_global_init(CURL_GLOBAL_DEFAULT);
+  std::string url = "/profile/info?show_balances=" + show_balances;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
 }
 
-API::~API()
+//Get a list of user wallets
+/*
+    sort string(query)	Sort direction. Available values : DESC, ASC  Default value : DESC 
+    sortBy  string(query)	Sort direction.    Available values : BALANCE, FROZEN, BONUS, HOLD, TOTAL  Default value : BALANCE
+    */
+std::string API::Get_list_user_wallets(std::string sort , std::string sortBy )
 {
-  curl_global_cleanup();
+  std::string url = "/profile/wallets";
+  url += "?sort=" + sort;
+  url += "&sortBy=" + sortBy;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
 }
+
+//Single wallet information
+std::string API::Get_single_user_wallet(std::string walletId)
+{
+  std::string url = "/profile/wallets/" + walletId;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Burns the given wallet
+std::string API::Burn_wallet(std::string walletId)
+{
+  std::string url = "/profile/wallets/burn/" + walletId;
+  std::string res = Call("POST", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Create a wallet for given currency
+/*
+    protocol_id integer(query)	Default value : The value that represents legacy protocol (in case of USDT it is 10 as Tether OMNI was default before multi-currency approach used). The list of values can be obtained from the /public/currencies/{currencyId} endpoint that returns the list of all available protocols for a given currency
+    */
+std::string API::Create_wallet(std::string currencyId, std::string protocol_id )
+{
+  std::string url = "/profile/wallets/" + currencyId;
+  if(protocol_id != "") url += "?protocol_id=" + protocol_id;
+  std::string res = Call("POST", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get deposit address for given wallet
+/*
+    protocol_id integer(query)	Default value : The value that represents legacy protocol (in case of USDT it is 10 as Tether OMNI was default before multi-currency approach used). The list of values can be obtained from the /public/currencies/{currencyId} endpoint that returns the list of all available protocols for a given currency
+    */
+std::string API::Get_deposit_address_wallet(std::string walletId, std::string protocol_id )
+{
+  std::string url = "/profile/wallets/address/" + walletId;
+  if(protocol_id != "") url += "?protocol_id=" + protocol_id;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Create new deposit address
+/*
+    protocol_id integer(query)	Default value : The value that represents legacy protocol (in case of USDT it is 10 as Tether OMNI was default before multi-currency approach used). The list of values can be obtained from the /public/currencies/{currencyId} endpoint that returns the list of all available protocols for a given currency
+    */
+std::string API::Create_new_deposit_address(std::string walletId, std::string protocol_id)
+{
+  std::string url = "/profile/wallets/address/" + walletId;
+  if(protocol_id != "") url += "?protocol_id=" + protocol_id;
+  std::string res = Call("POST", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get a list of deposits made by user
+/*
+    currencyId  integer(query)	the ID of the currency to filter results by
+    sort    string(query)	Sort direction. Results are always ordered by date. You may adjust the order direction here    
+    Available values : DESC, ASC    Default value : DESC
+    timeStart   integer(query)	Timestamp in seconds
+    timeEnd     integer(query)	Timestamp in seconds
+    limit       integer(query)	Default value : 100
+    offset      integer(query)	
+    */
+std::string API::Get_list_user_deposit(std::string currencyId, std::string sort, std::string timeStart, std::string timeEnd, std::string limit, std::string offset)
+{
+  std::string url = "/profile/deposits?";
+  if(currencyId != "")  url += "currencyId=" + currencyId + "&";
+  if(sort != "")        url += "sort=" + sort + "&";
+  if(timeStart != "")   url += "timeStart=" + timeStart + "&";
+  if(timeEnd != "")     url += "timeEnd=" + timeEnd + "&";
+  if(limit != "")       url += "limit=" + limit + "&";
+  if(offset != "")      url += "offset=" + offset ;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get deposit by id
+std::string API::Get_deposit(std::string id)
+{
+  std::string url = "/profile/deposits/" + id;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get a list of rewards obtained by user (e.g. in trading competitions)
+/*
+    currencyId  integer(query)	the ID of the currency to filter results by
+    sort    string(query)	Sort direction. Results are always ordered by date. You may adjust the order direction here    
+    Available values : DESC, ASC    Default value : DESC
+    timeStart   integer(query)	Timestamp in seconds
+    timeEnd     integer(query)	Timestamp in seconds
+    limit       integer(query)	Default value : 100
+    offset      integer(query)	
+    */
+std::string API::Get_list_rewards(std::string currencyId, std::string sort, std::string timeStart, std::string timeEnd, std::string limit, std::string offset)
+{
+  std::string url = "/profile/rewards?";
+  if(currencyId != "")  url += "currencyId=" + currencyId + "&";
+  if(sort != "")        url += "sort=" + sort + "&";
+  if(timeStart != "")   url += "timeStart=" + timeStart + "&";
+  if(timeEnd != "")     url += "timeEnd=" + timeEnd + "&";
+  if(limit != "")       url += "limit=" + limit + "&";
+  if(offset != "")      url += "offset=" + offset ;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get reward by id
+std::string API::Get_reward(std::string id)
+{
+  std::string url = "/profile/rewards/" + id;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get a list of user address book items
+std::string API::Get_list_user_address()
+{
+  std::string url = "/profile/addressbook/";
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Single address book item
+std::string API::Get_single_address(std::string itemId)
+{
+  std::string url = "/profile/addressbook/" + itemId;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+
+//Deletes address book item
+std::string API::Delete_address_book(std::string itemId)
+{
+  std::string url = "/profile/addressbook/" + itemId;
+  std::string res = Call("DELETE", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+
+//Disables the address book item
+std::string API::Disable_address_book_item(std::string itemId)
+{
+  std::string url = "/profile/addressbook/disable_item/" + itemId;
+  std::string res = Call("POST", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Enable the address book item
+std::string API::Enable_address_book_item(std::string itemId)
+{
+  std::string url = "/profile/addressbook/enable_item/" + itemId;
+  std::string res = Call("POST", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Restrict the withdrawals to only addresses that are active in addressbook
+std::string API::Restrict_withdrawal_addressbook()
+{
+  std::string url = "/profile/addressbook/enable_strict_wd/";
+  std::string res = Call("POST", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Remove restriction to withdraw to only addresses that are active in addressbook. E.g. allow to withdraw to any address.
+std::string API::Allow_withdrawal_addressbook()
+{
+  std::string url = "/profile/addressbook/disable_strict_wd/";
+  std::string res = Call("POST", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get a list of withdrawals made by user
+/*
+    currencyId  integer(query)	the ID of the currency to filter results by
+    sort    string(query)	Sort direction. Results are always ordered by date. You may adjust the order direction here    
+    Available values : DESC, ASC    Default value : DESC
+    timeStart   integer(query)	Timestamp in seconds
+    timeEnd     integer(query)	Timestamp in seconds
+    limit       integer(query)	Default value : 100
+    offset      integer(query)	
+    */
+std::string API::Get_list_withdrawal(std::string currencyId, std::string sort, std::string timeStart, std::string timeEnd, std::string limit, std::string offset)
+{
+  std::string url = "/profile/withdrawals?";
+  if(currencyId != "")  url += "currencyId=" + currencyId + "&";
+  if(sort != "")        url += "sort=" + sort + "&";
+  if(timeStart != "")   url += "timeStart=" + timeStart + "&";
+  if(timeEnd != "")     url += "timeEnd=" + timeEnd + "&";
+  if(limit != "")       url += "limit=" + limit + "&";
+  if(offset != "")      url += "offset=" + offset ;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get withdrawal by id
+std::string API::Get_withdrawal(std::string id)
+{
+  std::string url = "/profile/withdrawals/" + id;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Create withdrawal request
+/*
+    protocol_id integer     This optional parameter has to be used only for multicurrency wallets (for example for USDT). The list of possible values can be obtained in wallet address for such a currency
+    additional_address_parameter    string  If withdrawal address requires the payment ID or some key or destination tag etc pass it here
+    one_time_code   string  Optional Google Authenticator one-time code
+    */
+std::string API::Create_withdrawal_request(std::string currencyId, std::string amount, std::string address, std::string protocol_id, std::string additional_address_parameter, std::string one_time_code)
+{
+  std::string url = "/profile/withdraw";
+  std::string body = "";
+  body += "currency_id=" + currencyId + "&";
+  body += "amount=" + amount + "&";
+  body += "address=" + address + "&";
+  if(protocol_id != "")     body += "protocol_id=" + protocol_id + "&";
+  if(additional_address_parameter != "")       body += "additional_address_parameter=" + additional_address_parameter + "&";
+  if(one_time_code != "")      body += "one_time_code=" + one_time_code ;
+  std::string res = Call("POST", true, url, body);
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Cancel unconfirmed withdrawal
+std::string API::Cancel_unconfirmed_withdrawal(std::string withdrawalId)
+{
+  std::string url = "/profile/withdraw/" + withdrawalId;
+  std::string res = Call("DELETE", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+

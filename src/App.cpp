@@ -18,6 +18,42 @@
 
 using namespace rapidjson;
 
+App::App()
+{
+	std::string line;
+	std::ifstream myfile("key.conf");
+	std::string access_token = "";
+	Util util;
+
+	if (myfile.is_open())
+	{
+		while (std::getline(myfile, line))
+		{
+			std::vector<std::string> temp;
+			util.tokenize(line, ':', temp);
+			std::string key_name = temp[0];
+			std::string key_value = temp[1];
+			if (key_name == "access_token")
+			{
+				access_token = key_value;
+			}
+		}
+		myfile.close();
+	}
+	else
+	{
+		std::cout << "Unable to open conf file";
+	}
+	std::string uri = "https://api3.stex.com";
+
+	api.uri = uri;
+	api.access_token = access_token;
+}
+
+App::~App()
+{
+}
+
 //Public
 // Available Currencies
 void App::Get_list_currencies()
@@ -406,11 +442,11 @@ void App::Get_list_notification_by_event()
 
 //User event notification settings
 void App::Get_list_notification()
-{ 
+{
 	api.Get_list_notification();
 }
 
-//Set notification settings 
+//Set notification settings
 void App::Set_notification_settings()
 {
 	std::string event;
@@ -425,57 +461,209 @@ void App::Set_notification_settings()
 	std::cout << "please enter value (1, 0) :\t";
 	std::cin >> value;
 	std::cout << std::endl;
-	
+
 	api.Set_notification_settings(event, channel, value);
 }
 
 //Set notification settings
 void App::Set_notification_settings_one_request()
-{ 
+{
 	api.Set_notification_settings_one_request();
 }
 
-
-
-
-
-
-
-
-
-
-App::App()
+//Profile
+//Account Information
+void App::Get_accoutn_information()
 {
-	std::string line;
-	std::ifstream myfile("key.conf");
-	std::string access_token = "";
-	Util util;
-
-	if (myfile.is_open())
-	{
-		while (std::getline(myfile, line))
-		{
-			std::vector<std::string> temp;
-			util.tokenize(line, ':', temp);
-			std::string key_name = temp[0];
-			std::string key_value = temp[1];
-			if (key_name == "access_token")
-			{
-				access_token = key_value;
-			}
-		}
-		myfile.close();
-	}
-	else
-	{
-		std::cout << "Unable to open conf file";
-	}
-	std::string uri = "https://api3.stex.com";
-
-	api.uri = uri;
-	api.access_token = access_token;
+	api.Get_accoutn_information();
 }
 
-App::~App()
+//Get a list of user wallets
+void App::Get_list_user_wallets()
 {
+	api.Get_list_user_wallets();
+}
+
+//Single wallet information
+void App::Get_single_user_wallet()
+{
+	std::string walletId;
+	std::cout << "please enter walletId :\t";
+	std::cin >> walletId;
+	std::cout << std::endl;
+	api.Get_single_user_wallet(walletId);
+}
+
+//Burns the given wallet
+void App::Burn_wallet()
+{
+	std::string walletId;
+	std::cout << "please enter walletId :\t";
+	std::cin >> walletId;
+	std::cout << std::endl;
+	api.Burn_wallet(walletId);
+}
+
+//Create a wallet for given currency
+void App::Create_wallet()
+{
+	std::string currencyId;
+	std::cout << "please enter currencyId :\t";
+	std::cin >> currencyId;
+	std::cout << std::endl;
+	api.Create_wallet(currencyId);
+}
+
+//Get deposit address for given wallet
+void App::Get_deposit_address_wallet()
+{
+	std::string walletId;
+	std::cout << "please enter walletId :\t";
+	std::cin >> walletId;
+	std::cout << std::endl;
+	api.Get_deposit_address_wallet(walletId);
+}
+
+//Create new deposit address
+void App::Create_new_deposit_address()
+{
+	std::string walletId;
+	std::cout << "please enter walletId :\t";
+	std::cin >> walletId;
+	std::cout << std::endl;
+	api.Create_new_deposit_address(walletId);
+}
+
+//Get a list of deposits made by user
+void App::Get_list_user_deposit()
+{
+	api.Get_list_user_deposit();
+}
+
+//Get deposit by id
+void App::Get_deposit()
+{
+	std::string id;
+	std::cout << "please enter id :\t";
+	std::cin >> id;
+	std::cout << std::endl;
+	api.Get_deposit(id);
+}
+
+//Get a list of rewards obtained by user (e.g. in trading competitions)
+void App::Get_list_rewards()
+{
+	api.Get_list_rewards();
+}
+
+//Get reward by id
+void App::Get_reward()
+{
+	std::string id;
+	std::cout << "please enter id :\t";
+	std::cin >> id;
+	std::cout << std::endl;
+	api.Get_reward(id);
+}
+
+//Get a list of user address book items
+void App::Get_list_user_address()
+{
+	api.Get_list_user_address();
+}
+
+//Single address book item
+void App::Get_single_address()
+{
+	std::string itemId;
+	std::cout << "please enter itemId :\t";
+	std::cin >> itemId;
+	std::cout << std::endl;
+	api.Get_single_address(itemId);
+}
+
+//Deletes address book item
+void App::Delete_address_book()
+{
+	std::string itemId;
+	std::cout << "please enter itemId :\t";
+	std::cin >> itemId;
+	std::cout << std::endl;
+	api.Delete_address_book(itemId);
+}
+
+//Disables the address book item
+void App::Disable_address_book_item()
+{
+	std::string itemId;
+	std::cout << "please enter itemId :\t";
+	std::cin >> itemId;
+	std::cout << std::endl;
+	api.Disable_address_book_item(itemId);
+}
+
+//Enable the address book item
+void App::Enable_address_book_item()
+{
+	std::string itemId;
+	std::cout << "please enter itemId :\t";
+	std::cin >> itemId;
+	std::cout << std::endl;
+	api.Enable_address_book_item(itemId);
+}
+
+//Restrict the withdrawals to only addresses that are active in addressbook
+void App::Restrict_withdrawal_addressbook()
+{
+	api.Restrict_withdrawal_addressbook();
+}
+
+//Remove restriction to withdraw to only addresses that are active in addressbook. E.g. allow to withdraw to any address.
+void App::Allow_withdrawal_addressbook()
+{
+	api.Allow_withdrawal_addressbook();
+}
+
+//Get a list of withdrawals made by user
+void App::Get_list_withdrawal()
+{
+	api.Get_list_withdrawal();
+}
+
+//Get withdrawal by id
+void App::Get_withdrawal()
+{
+	std::string id;
+	std::cout << "please enter id :\t";
+	std::cin >> id;
+	std::cout << std::endl;
+	api.Get_withdrawal(id);
+}
+
+//Create withdrawal request
+void App::Create_withdrawal_request()
+{
+	std::string currencyId;
+	std::cout << "please enter currencyId :\t";
+	std::cin >> currencyId;
+	std::cout << std::endl;
+	std::string amount;
+	std::cout << "please enter amount :\t";
+	std::cin >> amount;
+	std::cout << std::endl;
+	std::string address;
+	std::cout << "please enter address :\t";
+	std::cin >> address;
+	std::cout << std::endl;
+	api.Create_withdrawal_request(currencyId, amount, address);
+}
+
+//Cancel unconfirmed withdrawal
+void App::Cancel_unconfirmed_withdrawal()
+{
+	std::string withdrawalId;
+	std::cout << "please enter withdrawalId :\t";
+	std::cin >> withdrawalId;
+	std::cout << std::endl;
+	api.Cancel_unconfirmed_withdrawal(withdrawalId);
 }

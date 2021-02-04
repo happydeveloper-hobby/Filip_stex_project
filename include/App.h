@@ -144,6 +144,74 @@ public:
     //41 Set notification settings in many channels for the user at one request
     void Set_notification_settings_one_request();
 
+    //Profile
+    //42 Account Information 
+    void Get_accoutn_information();
+
+    //43 Get a list of user wallets
+    void Get_list_user_wallets();
+
+    //44 Single wallet information
+    void Get_single_user_wallet();
+
+    //45 Burns the given wallet
+    void Burn_wallet();
+
+    //46 Create a wallet for given currency
+    void Create_wallet();
+
+    //47 Get a list of deposits made by user
+    void Get_list_user_deposit();
+
+    //48 Get deposit by id
+    void Get_deposit();
+
+    //49 Get a list of rewards obtained by user (e.g. in trading competitions)
+    void Get_list_rewards();
+
+    //50 Get reward by id
+    void Get_reward();
+
+    //51 Get a list of user address book items
+    void Get_list_user_address();
+
+    //52 Single address book item
+    void Get_single_address();
+
+    //53 Deletes address book item
+    void Delete_address_book();
+
+    //54 Disables the address book item
+    void Disable_address_book_item();
+
+    //55 Disables the address book item
+    void Enable_address_book_item();
+
+    //56 Restrict the withdrawals to only addresses that are active in addressbook
+    void Restrict_withdrawal_addressbook();
+
+    //57 Remove restriction to withdraw to only addresses that are active in addressbook. E.g. allow to withdraw to any address.
+    void Allow_withdrawal_addressbook();
+
+    //58 Get a list of withdrawals made by user
+    void Get_list_withdrawal();
+
+    //59 Get withdrawal by id
+    void Get_withdrawal();
+
+    //60 Create withdrawal request
+    void Create_withdrawal_request();
+
+    //61 Cancel unconfirmed withdrawal
+    void Cancel_unconfirmed_withdrawal();
+
+    
+    //62 Get deposit address for given wallet
+    void Get_deposit_address_wallet();
+
+    //63 Create new deposit address
+    void Create_new_deposit_address();
+
 
 
 

@@ -270,6 +270,122 @@ public:
     //Set notification settings
     std::string Set_notification_settings_one_request();
 
+
+    //Profile
+    //Account Information
+    /*
+    show_balances   string(query)	if present and is > 0, the response will include the 'approx_balance' section. It will be returned as null if this parameter is not present or is not positive number
+    */
+    std::string Get_accoutn_information(std::string show_balances = "");
+
+    //Get a list of user wallets
+    /*
+    sort string(query)	Sort direction. Available values : DESC, ASC  Default value : DESC 
+    sortBy  string(query)	Sort direction.    Available values : BALANCE, FROZEN, BONUS, HOLD, TOTAL  Default value : BALANCE
+    */
+    std::string Get_list_user_wallets(std::string sort = "", std::string sortBy = "");
+
+    //Single wallet information
+    std::string Get_single_user_wallet(std::string walletId);
+
+    //Burns the given wallet
+    std::string Burn_wallet(std::string walletId);
+
+    //Create a wallet for given currency
+    /*
+    protocol_id integer(query)	Default value : The value that represents legacy protocol (in case of USDT it is 10 as Tether OMNI was default before multi-currency approach used). The list of values can be obtained from the /public/currencies/{currencyId} endpoint that returns the list of all available protocols for a given currency
+    */
+    std::string Create_wallet(std::string currencyId, std::string protocol_id = "");
+
+    //Get deposit address for given wallet
+    /*
+    protocol_id integer(query)	Default value : The value that represents legacy protocol (in case of USDT it is 10 as Tether OMNI was default before multi-currency approach used). The list of values can be obtained from the /public/currencies/{currencyId} endpoint that returns the list of all available protocols for a given currency
+    */
+    std::string Get_deposit_address_wallet(std::string walletId, std::string protocol_id = "");
+
+    //Create new deposit address
+    /*
+    protocol_id integer(query)	Default value : The value that represents legacy protocol (in case of USDT it is 10 as Tether OMNI was default before multi-currency approach used). The list of values can be obtained from the /public/currencies/{currencyId} endpoint that returns the list of all available protocols for a given currency
+    */
+    std::string Create_new_deposit_address(std::string walletId, std::string protocol_id = "");
+
+    //Get a list of deposits made by user
+    /*
+    currencyId  integer(query)	the ID of the currency to filter results by
+    sort    string(query)	Sort direction. Results are always ordered by date. You may adjust the order direction here    
+    Available values : DESC, ASC    Default value : DESC
+    timeStart   integer(query)	Timestamp in seconds
+    timeEnd     integer(query)	Timestamp in seconds
+    limit       integer(query)	Default value : 100
+    offset      integer(query)	
+    */
+    std::string Get_list_user_deposit(std::string currencyId = "", std::string sort = "", std::string timeStart = "", std::string timeEnd = "", std::string limit = "", std::string offset = "");
+
+    //Get deposit by id
+    std::string Get_deposit(std::string id);
+
+    //Get a list of rewards obtained by user (e.g. in trading competitions)
+    /*
+    currencyId  integer(query)	the ID of the currency to filter results by
+    sort    string(query)	Sort direction. Results are always ordered by date. You may adjust the order direction here    
+    Available values : DESC, ASC    Default value : DESC
+    timeStart   integer(query)	Timestamp in seconds
+    timeEnd     integer(query)	Timestamp in seconds
+    limit       integer(query)	Default value : 100
+    offset      integer(query)	
+    */
+    std::string Get_list_rewards(std::string currencyId = "", std::string sort = "", std::string timeStart = "", std::string timeEnd = "", std::string limit = "", std::string offset = "");
+
+    //Get reward by id
+    std::string Get_reward(std::string id);
+
+    //Get a list of user address book items
+    std::string Get_list_user_address();
+
+    //Single address book item
+    std::string Get_single_address(std::string itemId);
+
+    //Deletes address book item
+    std::string Delete_address_book(std::string itemId);
+
+    //Disables the address book item
+    std::string Disable_address_book_item(std::string itemId);
+
+    //Enable the address book item
+    std::string Enable_address_book_item(std::string itemId);
+
+    //Restrict the withdrawals to only addresses that are active in addressbook
+    std::string Restrict_withdrawal_addressbook();
+
+    //Remove restriction to withdraw to only addresses that are active in addressbook. E.g. allow to withdraw to any address.
+    std::string Allow_withdrawal_addressbook();
+
+    //Get a list of withdrawals made by user
+    /*
+    currencyId  integer(query)	the ID of the currency to filter results by
+    sort    string(query)	Sort direction. Results are always ordered by date. You may adjust the order direction here    
+    Available values : DESC, ASC    Default value : DESC
+    timeStart   integer(query)	Timestamp in seconds
+    timeEnd     integer(query)	Timestamp in seconds
+    limit       integer(query)	Default value : 100
+    offset      integer(query)	
+    */
+    std::string Get_list_withdrawal(std::string currencyId = "", std::string sort = "", std::string timeStart = "", std::string timeEnd = "", std::string limit = "", std::string offset = "");
+
+    //Get withdrawal by id
+    std::string Get_withdrawal(std::string id);
+
+    //Create withdrawal request
+    /*
+    protocol_id integer     This optional parameter has to be used only for multicurrency wallets (for example for USDT). The list of possible values can be obtained in wallet address for such a currency
+    additional_address_parameter    string  If withdrawal address requires the payment ID or some key or destination tag etc pass it here
+    one_time_code   string  Optional Google Authenticator one-time code
+    */
+    std::string Create_withdrawal_request(std::string currencyId, std::string amount, std::string address, std::string protocol_id = "",  std::string additional_address_parameter = "",  std::string one_time_code = "");
+
+    //Cancel unconfirmed withdrawal
+    std::string Cancel_unconfirmed_withdrawal(std::string withdrawalId);
+
 };
 
 

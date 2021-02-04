@@ -77,7 +77,29 @@ int main()
 		std::cout << "\t" << std::left << std::setw(45) << "39) User event notification settings" << std::endl;
 		std::cout << "\t" << std::left << std::setw(45) << "40) Set notification settings in specific channel for the user" << std::endl;
 		std::cout << "\t" << std::left << std::setw(45) << "41) Set notification settings in many channels for the user at one request" << std::endl;
-		std::cout << "\t" << std::left << std::setw(45) << "42) Exit" << std::setw(45) << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "42) Account Information " << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "43) Get a list of user wallets" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "44) Single wallet information" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "45) Burns the given wallet" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "46) Create a wallet for given currency" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "47) Get a list of deposits made by user" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "48) Get deposit by id" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "49) Get a list of rewards obtained by user (e.g. in trading competitions)" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "50) Get reward by id" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "51) Get a list of user address book items" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "52) Single address book item" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "53) Deletes address book item" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "54) Disables the address book item" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "55) Disables the address book item" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "56) Restrict the withdrawals to only addresses that are active in addressbook" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "57) Remove restriction to withdraw to only addresses that are active in addressbook. E.g. allow to withdraw to any address." << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "58) Get a list of withdrawals made by user" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "59) Get withdrawal by id" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "60) Create withdrawal request" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "61) Cancel unconfirmed withdrawal" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "62) Get deposit address for given wallet" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "63) Create new deposit address" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "64) Exit" << std::setw(45) << std::endl;
 
 		choice = GetInput();
 
@@ -124,13 +146,35 @@ int main()
 			case 39:	app.Get_list_notification();					break;
 			case 40:	app.Set_notification_settings();				break;
 			case 41:	app.Set_notification_settings_one_request();	break;
-			case 42:	break;
+			case 42:	app.Get_accoutn_information();					break;
+			case 43:	app.Get_list_user_wallets();					break;
+			case 44:	app.Get_single_user_wallet();					break;
+			case 45:	app.Burn_wallet();								break;
+			case 46:	app.Create_wallet();							break;
+			case 47:	app.Get_list_user_deposit();					break;
+			case 48:	app.Get_deposit();								break;
+			case 49:	app.Get_list_rewards();							break;
+			case 50:	app.Get_reward();								break;
+			case 51:	app.Get_list_user_address();					break;
+			case 52:	app.Get_single_address();						break;
+			case 53:	app.Delete_address_book();						break;
+			case 54:	app.Disable_address_book_item();				break;
+			case 55:	app.Enable_address_book_item();					break;
+			case 56:	app.Restrict_withdrawal_addressbook();			break;
+			case 57:	app.Allow_withdrawal_addressbook();				break;
+			case 58:	app.Get_list_withdrawal();						break;
+			case 59:	app.Get_withdrawal();							break;
+			case 60:	app.Create_withdrawal_request();				break;
+			case 61:	app.Cancel_unconfirmed_withdrawal();			break;
+			case 62:	app.Get_deposit_address_wallet();				break;
+			case 63:	app.Create_new_deposit_address();				break;
+			case 64:	break;
 			default:	break;
 		}
 		std::cout << std::endl;
 		std::cout << "================================================================= " << std::endl << std::endl;
 
-	} while (choice < 42);
+	} while (choice < 64);
 
 	return 0;
 }
