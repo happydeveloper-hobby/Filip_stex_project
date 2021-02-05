@@ -1,4 +1,6 @@
 #include "API.h"
+#include "Util.h"
+#include <vector>
 #include <iostream>
 #include "curl/curl.h"
 #include "rapidjson/document.h"
@@ -592,13 +594,12 @@ std::string API::Set_notification_settings_one_request()
   return "";
 }
 
-
 //Profile
 //Account Information
 /*
     show_balances   string(query)	if present and is > 0, the response will include the 'approx_balance' section. It will be returned as null if this parameter is not present or is not positive number
     */
-std::string API::Get_accoutn_information(std::string show_balances )
+std::string API::Get_accoutn_information(std::string show_balances)
 {
   std::string url = "/profile/info?show_balances=" + show_balances;
   std::string res = Call("GET", true, url, "");
@@ -611,7 +612,7 @@ std::string API::Get_accoutn_information(std::string show_balances )
     sort string(query)	Sort direction. Available values : DESC, ASC  Default value : DESC 
     sortBy  string(query)	Sort direction.    Available values : BALANCE, FROZEN, BONUS, HOLD, TOTAL  Default value : BALANCE
     */
-std::string API::Get_list_user_wallets(std::string sort , std::string sortBy )
+std::string API::Get_list_user_wallets(std::string sort, std::string sortBy)
 {
   std::string url = "/profile/wallets";
   url += "?sort=" + sort;
@@ -643,10 +644,11 @@ std::string API::Burn_wallet(std::string walletId)
 /*
     protocol_id integer(query)	Default value : The value that represents legacy protocol (in case of USDT it is 10 as Tether OMNI was default before multi-currency approach used). The list of values can be obtained from the /public/currencies/{currencyId} endpoint that returns the list of all available protocols for a given currency
     */
-std::string API::Create_wallet(std::string currencyId, std::string protocol_id )
+std::string API::Create_wallet(std::string currencyId, std::string protocol_id)
 {
   std::string url = "/profile/wallets/" + currencyId;
-  if(protocol_id != "") url += "?protocol_id=" + protocol_id;
+  if (protocol_id != "")
+    url += "?protocol_id=" + protocol_id;
   std::string res = Call("POST", true, url, "");
   std::cout << res << std::endl;
   return "";
@@ -656,10 +658,11 @@ std::string API::Create_wallet(std::string currencyId, std::string protocol_id )
 /*
     protocol_id integer(query)	Default value : The value that represents legacy protocol (in case of USDT it is 10 as Tether OMNI was default before multi-currency approach used). The list of values can be obtained from the /public/currencies/{currencyId} endpoint that returns the list of all available protocols for a given currency
     */
-std::string API::Get_deposit_address_wallet(std::string walletId, std::string protocol_id )
+std::string API::Get_deposit_address_wallet(std::string walletId, std::string protocol_id)
 {
   std::string url = "/profile/wallets/address/" + walletId;
-  if(protocol_id != "") url += "?protocol_id=" + protocol_id;
+  if (protocol_id != "")
+    url += "?protocol_id=" + protocol_id;
   std::string res = Call("GET", true, url, "");
   std::cout << res << std::endl;
   return "";
@@ -672,7 +675,8 @@ std::string API::Get_deposit_address_wallet(std::string walletId, std::string pr
 std::string API::Create_new_deposit_address(std::string walletId, std::string protocol_id)
 {
   std::string url = "/profile/wallets/address/" + walletId;
-  if(protocol_id != "") url += "?protocol_id=" + protocol_id;
+  if (protocol_id != "")
+    url += "?protocol_id=" + protocol_id;
   std::string res = Call("POST", true, url, "");
   std::cout << res << std::endl;
   return "";
@@ -691,12 +695,18 @@ std::string API::Create_new_deposit_address(std::string walletId, std::string pr
 std::string API::Get_list_user_deposit(std::string currencyId, std::string sort, std::string timeStart, std::string timeEnd, std::string limit, std::string offset)
 {
   std::string url = "/profile/deposits?";
-  if(currencyId != "")  url += "currencyId=" + currencyId + "&";
-  if(sort != "")        url += "sort=" + sort + "&";
-  if(timeStart != "")   url += "timeStart=" + timeStart + "&";
-  if(timeEnd != "")     url += "timeEnd=" + timeEnd + "&";
-  if(limit != "")       url += "limit=" + limit + "&";
-  if(offset != "")      url += "offset=" + offset ;
+  if (currencyId != "")
+    url += "currencyId=" + currencyId + "&";
+  if (sort != "")
+    url += "sort=" + sort + "&";
+  if (timeStart != "")
+    url += "timeStart=" + timeStart + "&";
+  if (timeEnd != "")
+    url += "timeEnd=" + timeEnd + "&";
+  if (limit != "")
+    url += "limit=" + limit + "&";
+  if (offset != "")
+    url += "offset=" + offset;
   std::string res = Call("GET", true, url, "");
   std::cout << res << std::endl;
   return "";
@@ -724,12 +734,18 @@ std::string API::Get_deposit(std::string id)
 std::string API::Get_list_rewards(std::string currencyId, std::string sort, std::string timeStart, std::string timeEnd, std::string limit, std::string offset)
 {
   std::string url = "/profile/rewards?";
-  if(currencyId != "")  url += "currencyId=" + currencyId + "&";
-  if(sort != "")        url += "sort=" + sort + "&";
-  if(timeStart != "")   url += "timeStart=" + timeStart + "&";
-  if(timeEnd != "")     url += "timeEnd=" + timeEnd + "&";
-  if(limit != "")       url += "limit=" + limit + "&";
-  if(offset != "")      url += "offset=" + offset ;
+  if (currencyId != "")
+    url += "currencyId=" + currencyId + "&";
+  if (sort != "")
+    url += "sort=" + sort + "&";
+  if (timeStart != "")
+    url += "timeStart=" + timeStart + "&";
+  if (timeEnd != "")
+    url += "timeEnd=" + timeEnd + "&";
+  if (limit != "")
+    url += "limit=" + limit + "&";
+  if (offset != "")
+    url += "offset=" + offset;
   std::string res = Call("GET", true, url, "");
   std::cout << res << std::endl;
   return "";
@@ -762,7 +778,6 @@ std::string API::Get_single_address(std::string itemId)
   return "";
 }
 
-
 //Deletes address book item
 std::string API::Delete_address_book(std::string itemId)
 {
@@ -771,7 +786,6 @@ std::string API::Delete_address_book(std::string itemId)
   std::cout << res << std::endl;
   return "";
 }
-
 
 //Disables the address book item
 std::string API::Disable_address_book_item(std::string itemId)
@@ -822,12 +836,18 @@ std::string API::Allow_withdrawal_addressbook()
 std::string API::Get_list_withdrawal(std::string currencyId, std::string sort, std::string timeStart, std::string timeEnd, std::string limit, std::string offset)
 {
   std::string url = "/profile/withdrawals?";
-  if(currencyId != "")  url += "currencyId=" + currencyId + "&";
-  if(sort != "")        url += "sort=" + sort + "&";
-  if(timeStart != "")   url += "timeStart=" + timeStart + "&";
-  if(timeEnd != "")     url += "timeEnd=" + timeEnd + "&";
-  if(limit != "")       url += "limit=" + limit + "&";
-  if(offset != "")      url += "offset=" + offset ;
+  if (currencyId != "")
+    url += "currencyId=" + currencyId + "&";
+  if (sort != "")
+    url += "sort=" + sort + "&";
+  if (timeStart != "")
+    url += "timeStart=" + timeStart + "&";
+  if (timeEnd != "")
+    url += "timeEnd=" + timeEnd + "&";
+  if (limit != "")
+    url += "limit=" + limit + "&";
+  if (offset != "")
+    url += "offset=" + offset;
   std::string res = Call("GET", true, url, "");
   std::cout << res << std::endl;
   return "";
@@ -855,9 +875,12 @@ std::string API::Create_withdrawal_request(std::string currencyId, std::string a
   body += "currency_id=" + currencyId + "&";
   body += "amount=" + amount + "&";
   body += "address=" + address + "&";
-  if(protocol_id != "")     body += "protocol_id=" + protocol_id + "&";
-  if(additional_address_parameter != "")       body += "additional_address_parameter=" + additional_address_parameter + "&";
-  if(one_time_code != "")      body += "one_time_code=" + one_time_code ;
+  if (protocol_id != "")
+    body += "protocol_id=" + protocol_id + "&";
+  if (additional_address_parameter != "")
+    body += "additional_address_parameter=" + additional_address_parameter + "&";
+  if (one_time_code != "")
+    body += "one_time_code=" + one_time_code;
   std::string res = Call("POST", true, url, body);
   std::cout << res << std::endl;
   return "";
@@ -872,3 +895,119 @@ std::string API::Cancel_unconfirmed_withdrawal(std::string withdrawalId)
   return "";
 }
 
+//Get notifications
+std::string API::Get_notifications(std::string limit , std::string offset )
+{
+  std::string url = "/profile/notifications";
+  url += "?limit=" + limit;
+  url += "&offset=" + offset;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get a list of active price alerts
+std::string API::Get_list_active_price_alert(std::string currencyPairId)
+{
+  std::string url = "/profile/notifications/price?" + currencyPairId;
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Create new price alert
+/*
+    comparison *    string      One of the 'GREATER' or 'LESS'
+    */
+std::string API::Create_new_price_alert(std::string currencyPairId, std::string comarison, std::string price)
+{
+  std::string url = "/profile/notifications/price";
+  std::string body = "";
+  body += "currencyPairId=" + currencyPairId;
+  body += "&comarison=" + comarison;
+  body += "&price=" + price;
+  std::string res = Call("POST", true, url, body);
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Delete the price alert by ID
+std::string API::Delete_price_alert(std::string priceAlertId)
+{
+  std::string url = "/profile/notifications/price/" + priceAlertId;
+  std::string res = Call("DELETE", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Create referral program
+std::string API::Create_referral_program()
+{
+  std::string url = "/profile/referral/program";
+  std::string res = Call("POST", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Insert referral code
+std::string API::Insert_referral_code(std::string code)
+{
+  std::string url = "/profile/referral/insert/" + code;
+  std::string res = Call("POST", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Transfer referral bonuses balance to main balance for given currency
+std::string API::Transfer_referral_bonuses(std::string currencyId)
+{
+  std::string url = "/profile/referral/bonus_transfer/" + currencyId;
+  std::string res = Call("POST", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get favorite currency pairs
+std::string API::Get_fav_currency_pair()
+{
+  std::string url = "/profile/favorite/currency_pairs";
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Set favorite currency pairs
+/*
+    addPairIds  array[integer](query)	add ids of currency pairs to list  (1,2,3....)
+    removePairIds   array[integer](query)	remove ids of currency pairs from list (1,2,3....)
+    show        boolean(query)
+    */
+std::string API::Set_fav_currency_pair(std::string addPairIds, std::string removePairIds, std::string show)
+{
+  std::string body = "";
+  std::vector<std::string> v_addPairIds;
+  std::vector<std::string> v_removePairIds;
+  util.split(addPairIds, ',', v_addPairIds);
+  util.split(removePairIds, ',', v_removePairIds);
+  for(int i = 0; i < v_addPairIds.size(); i ++){
+    body += "addPairIds=" + v_addPairIds[i] + "&";
+  }
+  for(int i = 0; i < v_removePairIds.size(); i ++){
+    body += "removePairIds=" + v_removePairIds[i] + "&";
+  }
+    body += "show=" + show;
+
+  std::string url = "/profile/favorite/currency_pairs/set";
+  std::string res = Call("PUT", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}
+
+//Get current token scopes
+std::string API::Get_current_token_scopes()
+{
+  std::string url = "/profile/token-scopes";
+  std::string res = Call("GET", true, url, "");
+  std::cout << res << std::endl;
+  return "";
+}

@@ -99,7 +99,17 @@ int main()
 		std::cout << "\t" << std::left << std::setw(45) << "61) Cancel unconfirmed withdrawal" << std::endl;
 		std::cout << "\t" << std::left << std::setw(45) << "62) Get deposit address for given wallet" << std::endl;
 		std::cout << "\t" << std::left << std::setw(45) << "63) Create new deposit address" << std::endl;
-		std::cout << "\t" << std::left << std::setw(45) << "64) Exit" << std::setw(45) << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "64) Get notifications" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "65) Get a list of active price alerts" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "66) Create new price alert" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "67) Delete the price alert by ID" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "68) Create referral program" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "69) Insert referral code" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "70) Transfer referral bonuses balance to main balance for given currency" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "71) Get favorite currency pairs" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "72) Set favorite currency pairs " << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "73) Get current token scopes" << std::endl;
+		std::cout << "\t" << std::left << std::setw(45) << "74) Exit" << std::setw(45) << std::endl;
 
 		choice = GetInput();
 
@@ -168,13 +178,23 @@ int main()
 			case 61:	app.Cancel_unconfirmed_withdrawal();			break;
 			case 62:	app.Get_deposit_address_wallet();				break;
 			case 63:	app.Create_new_deposit_address();				break;
-			case 64:	break;
+			case 64:	app.Get_notifications();						break;
+			case 65:	app.Get_list_active_price_alert();				break;
+			case 66:	app.Create_new_price_alert();					break;
+			case 67:	app.Delete_price_alert();						break;
+			case 68:	app.Create_referral_program();					break;
+			case 69:	app.Insert_referral_code();						break;
+			case 70:	app.Transfer_referral_bonuses();				break;
+			case 71:	app.Get_fav_currency_pair();					break;
+			case 72:	app.Set_fav_currency_pair();					break;
+			case 73:	app.Get_current_token_scopes();					break;
+			case 74:	break;
 			default:	break;
 		}
 		std::cout << std::endl;
 		std::cout << "================================================================= " << std::endl << std::endl;
 
-	} while (choice < 64);
+	} while (choice < 73);
 
 	return 0;
 }

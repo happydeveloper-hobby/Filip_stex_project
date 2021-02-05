@@ -212,6 +212,35 @@ public:
     //63 Create new deposit address
     void Create_new_deposit_address();
 
+    //64 Get notifications
+    void Get_notifications();
+
+    //65 Get a list of active price alerts
+    void Get_list_active_price_alert();
+
+    //66 Create new price alert
+    void Create_new_price_alert();
+
+    //67 Delete the price alert by ID
+    void Delete_price_alert();
+
+    //68 Create referral program
+    void Create_referral_program();
+
+    //69 Insert referral code
+    void Insert_referral_code();
+
+    //70 Transfer referral bonuses balance to main balance for given currency
+    void Transfer_referral_bonuses();
+
+    //71 Get favorite currency pairs
+    void Get_fav_currency_pair();
+
+    //72 Set favorite currency pairs 
+    void Set_fav_currency_pair();
+
+    //73 Get current token scopes
+    void Get_current_token_scopes();
 
 
 

@@ -45,7 +45,7 @@ void Util::permutation(std::string a, int l, int r)
 }
 
 
-void Util::tokenize(std::string &str, char delim, std::vector<std::string> &out)
+void Util::split(std::string &str, char delim, std::vector<std::string> &out)
 {
 	size_t start;
 	size_t end = 0;

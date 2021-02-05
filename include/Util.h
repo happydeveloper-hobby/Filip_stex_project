@@ -19,7 +19,7 @@ public:
     void permutation(std::string a, int l, int r);
     std::string GetTimestamp();
     int GetNumberCombination(int n, int r);
-    void tokenize(std::string &str, char delim, std::vector<std::string> &out);
+    void split(std::string &str, char delim, std::vector<std::string> &out);
 };
 
 #endif // UTIL_H

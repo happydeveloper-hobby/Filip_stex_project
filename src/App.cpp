@@ -30,7 +30,7 @@ App::App()
 		while (std::getline(myfile, line))
 		{
 			std::vector<std::string> temp;
-			util.tokenize(line, ':', temp);
+			util.split(line, ':', temp);
 			std::string key_name = temp[0];
 			std::string key_value = temp[1];
 			if (key_name == "access_token")
@@ -666,4 +666,97 @@ void App::Cancel_unconfirmed_withdrawal()
 	std::cin >> withdrawalId;
 	std::cout << std::endl;
 	api.Cancel_unconfirmed_withdrawal(withdrawalId);
+}
+
+//Get notifications
+void App::Get_notifications()
+{
+	api.Get_notifications();
+}
+
+//Get a list of active price alerts
+void App::Get_list_active_price_alert()
+{
+	api.Get_list_active_price_alert();
+}
+
+//Create new price alert
+void App::Create_new_price_alert()
+{
+	std::string currencyPairId;
+	std::cout << "please enter currencyPairId :\t";
+	std::cin >> currencyPairId;
+	std::cout << std::endl;
+	std::string comarison;
+	std::cout << "please enter comarison ( 'GREATER' or 'LESS') :\t";
+	std::cin >> comarison;
+	std::cout << std::endl;
+	std::string price;
+	std::cout << "please enter price :\t";
+	std::cin >> price;
+	std::cout << std::endl;
+	api.Create_new_price_alert(currencyPairId, comarison, price);
+}
+
+//Delete the price alert by ID
+void App::Delete_price_alert()
+{
+	std::string priceAlertId;
+	std::cout << "please enter priceAlertId :\t";
+	std::cin >> priceAlertId;
+	std::cout << std::endl;
+	api.Delete_price_alert(priceAlertId);
+}
+
+//Create referral program
+void App::Create_referral_program()
+{
+	api.Create_referral_program();
+}
+
+//Insert referral code
+void App::Insert_referral_code()
+{
+	std::string code;
+	std::cout << "please enter code :\t";
+	std::cin >> code;
+	std::cout << std::endl;
+	api.Delete_price_alert(code);
+}
+
+//Transfer referral bonuses balance to main balance for given currency
+void App::Transfer_referral_bonuses()
+{
+	std::string currencyId;
+	std::cout << "please enter currencyId :\t";
+	std::cin >> currencyId;
+	std::cout << std::endl;
+	api.Transfer_referral_bonuses(currencyId);
+}
+
+//Get favorite currency pairs
+void App::Get_fav_currency_pair()
+{
+	api.Get_fav_currency_pair();
+}
+
+//Set favorite currency pairs
+/*
+    addPairIds  array[integer](query)	add ids of currency pairs to list
+    removePairIds   array[integer](query)	remove ids of currency pairs from list
+    show        boolean(query)
+    */
+void App::Set_fav_currency_pair()
+{
+	std::string addPairIds;
+	std::cout << "please enter addPairIds(1,2,3...) :\t";
+	std::cin >> addPairIds;
+	std::cout << std::endl;
+	api.Set_fav_currency_pair(addPairIds);
+}
+
+//Get current token scopes
+void App::Get_current_token_scopes()
+{
+	api.Get_current_token_scopes();
 }

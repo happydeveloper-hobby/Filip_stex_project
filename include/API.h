@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include "Util.h"
 
 class API
 {
@@ -13,6 +14,7 @@ private:
 public:
     API();
     ~API();
+    Util util;
     std::string uri;
     std::string access_token;
     std::string product_id;
@@ -385,6 +387,50 @@ public:
 
     //Cancel unconfirmed withdrawal
     std::string Cancel_unconfirmed_withdrawal(std::string withdrawalId);
+
+    //Get notifications
+    std::string Get_notifications(std::string limit  = "", std::string offset = "");
+
+    //Get a list of active price alerts
+    std::string Get_list_active_price_alert(std::string currencyPairId  = "");
+
+    //Create new price alert
+    /*
+    comparison *    string      One of the 'GREATER' or 'LESS'
+    */
+    std::string Create_new_price_alert(std::string currencyPairId, std::string comarison, std::string price);
+
+    //Delete the price alert by ID
+    std::string Delete_price_alert(std::string priceAlertId);
+
+    //Create referral program
+    std::string Create_referral_program();
+
+    //Insert referral code
+    std::string Insert_referral_code(std::string code);
+
+    //Transfer referral bonuses balance to main balance for given currency
+    std::string Transfer_referral_bonuses(std::string currencyId);
+
+    //Get favorite currency pairs
+    std::string Get_fav_currency_pair();
+
+    //Set favorite currency pairs
+    /*
+    addPairIds  array[integer](query)	add ids of currency pairs to list
+    removePairIds   array[integer](query)	remove ids of currency pairs from list
+    show        boolean(query)
+    */
+    std::string Set_fav_currency_pair(std::string addPairIds, std::string removePairIds = "", std::string show = "");
+
+    //Get current token scopes
+    std::string Get_current_token_scopes();
+
+
+
+
+
+
 
 };
 
