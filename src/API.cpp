@@ -244,8 +244,8 @@ std::string API::Get_ticker_list_currency_pairs()
 {
   std::string url = "/public/ticker";
   std::string res = Call("GET", false, url, "");
-  std::cout << res << std::endl;
-  return "";
+  // std::cout << res << std::endl;
+  return res;
 }
 
 // Ticker for currency pair

@@ -40,6 +40,7 @@ public:
     void Get_currency_pair_information();
 
     //8 Tickers list for all currency pairs
+    //  isUse:  true -> will use the currency pairs in conf file, or not
     void Get_ticker_list_currency_pairs();
 
     //9 Ticker for currency pair
