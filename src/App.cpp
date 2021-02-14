@@ -23,6 +23,7 @@ using namespace rapidjson;
 using namespace std;
 
 vector<string> coinList;
+vector<string> myCoinList;
 vector<vector<int>> all_cycles;
 // C++ program for the above approach
 //#include <bits/stdc++.h>
@@ -159,6 +160,7 @@ App::App()
 	std::string line;
 	std::ifstream myfile("key.conf");
 	std::string access_token = "";
+	std::string str_currency = "";
 	Util util;
 
 	if (myfile.is_open())
@@ -173,6 +175,10 @@ App::App()
 			{
 				access_token = key_value;
 			}
+			if (key_name == "currency")
+			{
+				str_currency = key_value;
+			}
 		}
 		myfile.close();
 	}
@@ -184,6 +190,7 @@ App::App()
 
 	api.uri = uri;
 	api.access_token = access_token;
+	util.split(str_currency, ',', myCoinList);
 }
 
 App::~App()
@@ -250,8 +257,13 @@ void App::Get_currency_pair_information()
 }
 
 // Tickers list for all currency pairs
-void App::Get_ticker_list_currency_pairs()
+void App::Get_ticker_list_currency_pairs(bool isUse)
 {
+	if(isUse && myCoinList.size() < 1) 
+	{
+		cout<< "No Coin in conf file!" << endl;
+		return;
+	} 
 	string st = api.Get_ticker_list_currency_pairs();
 	// cout << st;
 	Document d;
@@ -272,9 +284,19 @@ void App::Get_ticker_list_currency_pairs()
 		if (bid != "" && ask != "")
 			if (stof(bid) > 0 && stof(ask) > 0)
 			{
-				insertCoin(ccode);
-				insertCoin(mcode);
-				E++;
+				if(isUse){
+					auto ic = find(myCoinList.begin(), myCoinList.end(), ccode) - myCoinList.begin();
+					auto im = find(myCoinList.begin(), myCoinList.end(), mcode) - myCoinList.begin();
+					if(ic != myCoinList.size() && im != myCoinList.size() ){
+						insertCoin(ccode);
+						insertCoin(mcode);
+						E++;
+					}else continue;
+				}else{
+					insertCoin(ccode);
+					insertCoin(mcode);
+					E++;
+				}
 			}
 	}
 
